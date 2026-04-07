@@ -51,19 +51,19 @@ def fft_score(gray):
 
     score = 0.5
 
-    # 🔥 PEAK (strongest)
+    #  PEAK (strongest)
     if peak_ratio > 0.036:
         score += 0.5
     elif peak_ratio > 0.028:
         score += 0.3
 
-    # 🔥 STD (medium)
+    #  STD (medium)
     if std < 0.72 or std > 1.6:
         score += 0.25
     elif std < 0.79 or std > 1.4:
         score += 0.15
 
-    # 🔥 MEAN (weak)
+    #  MEAN (weak)
     if mean < 0.5 or (2.25 < mean < 2.50):
         score += 0.15
 
@@ -79,17 +79,17 @@ def texture_score(gray):
 
     score = 0.0
 
-    # 🔥 LOW entropy → over-smooth AI
+    #  LOW entropy → over-smooth AI
     if entropy < 5.5:
         score += 0.4
     elif entropy < 6.3:
         score += 0.25
 
-    # 🔥 VERY HIGH entropy → synthetic noise (rare but possible)
+    #  VERY HIGH entropy → synthetic noise (rare but possible)
     elif entropy > 7.8:
         score += 0.3
 
-    # 🔥 Normal range → real-like
+    #  Normal range
     # (5.8 – 7.5 is typical real zone)
 
     return float(min(score, 1))
